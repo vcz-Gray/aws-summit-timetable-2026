@@ -1,0 +1,637 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>AWS Summit Seoul 2026 세션 타임테이블</title>
+<style>
+  :root {
+    --bg:#0b1220; --panel:#121a2b; --panel2:#17233a; --panel3:#101a2d; --line:#2a3a58;
+    --text:#e9eefb; --muted:#a8b4cf; --accent:#66d9ef; --accent2:#8bd450; --danger:#ff8d8d;
+    --shadow:0 18px 36px rgba(0,0,0,.22);
+  }
+  *{box-sizing:border-box}
+  body{margin:0;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,'Apple SD Gothic Neo','Noto Sans KR',sans-serif;background:linear-gradient(180deg,#0b1220,#0f1728 35%,#101826);color:var(--text);line-height:1.45}
+  button,input{font:inherit}
+  .wrap{max-width:1880px;margin:0 auto;padding:24px}
+  h1{margin:0 0 8px;font-size:32px}
+  .sub{color:var(--muted);margin-bottom:18px}
+  .meta{display:flex;gap:12px;flex-wrap:wrap;margin:16px 0 24px}
+  .chip{background:var(--panel);border:1px solid var(--line);padding:10px 14px;border-radius:999px;color:var(--muted)}
+  .layout{display:grid;grid-template-columns:minmax(0,1.45fr) minmax(320px,.8fr);gap:24px;align-items:start}
+  .left-col,.right-col{min-width:0}
+  .toolbar,.sidebar{background:rgba(18,26,43,.96);border:1px solid var(--line);border-radius:20px;box-shadow:var(--shadow)}
+  .toolbar{padding:16px 18px;margin-bottom:18px}
+  .toolbar-row{display:flex;flex-wrap:wrap;gap:12px;align-items:center;justify-content:space-between}
+  .toolbar-actions{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+  .control-group{display:flex;flex-direction:column;gap:6px;min-width:180px}
+  .control-label{font-size:12px;color:var(--muted);font-weight:600}
+  .control-select{appearance:none;border:1px solid var(--line);background:#14233b;color:var(--text);padding:10px 14px;border-radius:12px;cursor:pointer;min-width:180px}
+  .autosave-note{font-size:12px;color:var(--accent)}
+  .btn{appearance:none;border:1px solid var(--line);background:#14233b;color:var(--text);padding:10px 14px;border-radius:12px;cursor:pointer;transition:.18s ease;box-shadow:none}
+  .btn:hover{transform:translateY(-1px);background:#183050}
+  .btn:disabled{opacity:.5;cursor:not-allowed;transform:none}
+  .btn-primary{background:linear-gradient(135deg,#1779d4,#0fb7d9);border-color:#2590e4;color:white;font-weight:700}
+  .btn-ghost{background:transparent}
+  .helper{font-size:13px;color:var(--muted)}
+  .day{margin:0 0 24px}
+  .day h2{margin:0 0 14px;font-size:24px}
+  .table-wrap{overflow:auto;border:1px solid var(--line);border-radius:18px;box-shadow:0 8px 24px rgba(0,0,0,.18)}
+  table{width:100%;border-collapse:collapse;background:rgba(18,26,43,.92);min-width:1280px}
+  thead th{position:sticky;top:0;background:#17233a;color:#dfe8ff;text-align:left;padding:14px 12px;font-size:13px;border-bottom:1px solid var(--line);z-index:1}
+  tbody td{padding:12px;border-top:1px solid rgba(42,58,88,.75);vertical-align:top;font-size:14px}
+  tbody tr:nth-child(even){background:rgba(255,255,255,.02)}
+  tbody tr.selected-row{background:rgba(102,217,239,.11)}
+  tbody tr.conflict-disabled{opacity:.42}
+  .select-cell{width:70px;white-space:nowrap}
+  .select-wrap{display:flex;align-items:center;gap:8px}
+  .select-wrap input{width:18px;height:18px;accent-color:#37c4f1;cursor:pointer}
+  .select-label{font-size:12px;color:var(--muted)}
+  .time{white-space:nowrap;font-weight:700;color:var(--accent)}
+  .title{font-weight:700}
+  .summary{color:#d7e0f6}
+  .muted{color:var(--muted)}
+  .badge{display:inline-block;padding:3px 8px;border-radius:999px;font-size:12px;font-weight:700;border:1px solid var(--line);background:#0f1a30;color:#cdd8f5;margin-right:6px;margin-bottom:6px}
+  .level-Foundational{color:#9fe870} .level-Intermediate{color:#7ed7ff} .level-Advanced{color:#ffca72} .level-Expert{color:#ff8d8d} .level--{color:#cdd8f5}
+  .sidebar{position:sticky;top:18px;padding:18px}
+  .sidebar-header{display:flex;justify-content:space-between;gap:12px;align-items:flex-start;margin-bottom:12px}
+  .sidebar h2{margin:0;font-size:22px}
+  .sidebar-sub{color:var(--muted);font-size:13px;margin-top:4px}
+  .summary-boxes{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin:14px 0 18px}
+  .stat{background:var(--panel3);border:1px solid var(--line);border-radius:16px;padding:12px}
+  .stat strong{display:block;font-size:20px}
+  .selected-board{background:linear-gradient(180deg,rgba(15,26,48,.98),rgba(15,23,40,.98));border:1px solid var(--line);border-radius:20px;padding:18px;min-height:220px}
+  .selected-board.exporting{box-shadow:none}
+  .board-title{display:flex;justify-content:space-between;gap:12px;align-items:flex-start;margin-bottom:14px}
+  .board-title h3{margin:0;font-size:20px}
+  .pill{display:inline-flex;align-items:center;border:1px solid var(--line);border-radius:999px;padding:6px 10px;font-size:12px;color:var(--muted);background:#13233a}
+  .selected-day{margin-top:18px}
+  .selected-day:first-of-type{margin-top:0}
+  .selected-day h4{margin:0 0 10px;font-size:16px;color:#f0f5ff}
+  .selected-list{display:flex;flex-direction:column;gap:10px}
+  .selected-card{background:rgba(255,255,255,.03);border:1px solid rgba(82,118,166,.45);border-radius:16px;padding:12px 14px}
+  .selected-top{display:flex;gap:10px;justify-content:space-between;align-items:flex-start;margin-bottom:6px}
+  .selected-time{font-weight:800;color:var(--accent);white-space:nowrap}
+  .selected-code{font-size:12px;color:var(--muted)}
+  .selected-card .title{margin-bottom:6px}
+  .selected-meta{font-size:12px;color:var(--muted);margin-bottom:8px}
+  .selected-summary{font-size:13px;color:#d9e3fa}
+  .empty-state{display:flex;align-items:center;justify-content:center;min-height:180px;text-align:center;color:var(--muted);padding:24px;border:1px dashed rgba(102,217,239,.24);border-radius:16px;background:rgba(255,255,255,.02)}
+  .footer{color:var(--muted);font-size:13px;margin-top:18px}
+  @media (max-width: 1180px) { .layout{grid-template-columns:1fr} .sidebar{position:static} }
+  @media print { .toolbar, .right-col{display:none !important} .layout{grid-template-columns:1fr} body{background:white;color:black} }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>AWS Summit Seoul 2026 세션 타임테이블</h1>
+  <div class="sub">세션을 선택하면 같은 날짜의 겹치는 시간대 세션은 자동으로 비활성화됩니다. 오른쪽에는 선택한 세션만 모아본 개인 타임테이블이 표시됩니다.</div>
+
+  <div class="meta">
+    <div class="chip">5월 20일 세션 수: 63</div>
+    <div class="chip">5월 21일 세션 수: 55</div>
+    <div class="chip">기능: 충돌 방지 선택 · 우측 개인 타임테이블 · PNG 다운로드</div>
+  </div>
+
+  <div class="layout">
+    <div class="left-col">
+      <div class="toolbar">
+        <div class="toolbar-row">
+          <div>
+            <div><strong>세션 선택 가이드</strong></div>
+            <div class="helper">같은 날짜에서 시간이 겹치는 세션은 동시에 선택할 수 없습니다.</div>
+          </div>
+          <div class="toolbar-actions">
+            <div class="control-group">
+              <label class="control-label" for="exportOrientationSelect">다운로드 방향</label>
+              <select class="control-select" id="exportOrientationSelect">
+                <option value="landscape">가로형 (Landscape)</option>
+                <option value="portrait">세로형 (Portrait)</option>
+              </select>
+            </div>
+            <div class="control-group">
+              <span class="control-label">저장 상태</span>
+              <span class="autosave-note">선택한 세션과 방향은 자동 저장됩니다.</span>
+            </div>
+            <button class="btn btn-ghost" id="clearSelectionsBtn" type="button">선택 초기화</button>
+            <button class="btn btn-primary" id="downloadImageBtn" type="button">선택 타임테이블 PNG 다운로드</button>
+          </div>
+        </div>
+      </div>
+      <div id="daysContainer"></div>
+      <div class="footer">출처: AWS Summit Seoul 2026 강연 목록 페이지</div>
+    </div>
+
+    <aside class="right-col">
+      <div class="sidebar">
+        <div class="sidebar-header">
+          <div>
+            <h2>선택한 타임테이블</h2>
+            <div class="sidebar-sub">오른쪽 패널에는 선택한 세션만 표시됩니다.</div>
+          </div>
+          <span class="pill" id="selectionCounter">0개 선택</span>
+        </div>
+        <div class="summary-boxes">
+          <div class="stat"><span class="helper">5월 20일 선택</span><strong id="countDay1">0</strong></div>
+          <div class="stat"><span class="helper">5월 21일 선택</span><strong id="countDay2">0</strong></div>
+        </div>
+        <div class="selected-board" id="selectedBoard">
+          <div class="board-title">
+            <div>
+              <h3>My AWS Summit Plan</h3>
+              <div class="helper">선택 세션만 시간순으로 정리됩니다.</div>
+            </div>
+            <span class="pill" id="conflictNotice">충돌 없음</span>
+          </div>
+          <div id="selectedBoardContent"></div>
+        </div>
+      </div>
+    </aside>
+  </div>
+</div>
+
+<script>
+  const scheduleData = [{"day_name": "5월 20일(수)", "count": 63, "rows": [{"time": "09:30 - 10:40", "code": "KEY001", "lang": "EN", "level": "-", "title": "기조연설 - Industry Day", "org": "AWS/파트너", "summary": "행사의 큰 방향성과 핵심 메시지를 빠르게 파악하기 좋은 키노트 세션."}, {"time": "11:00 - 11:20", "code": "PRT216-S", "lang": "KR", "level": "Intermediate", "title": "Unlocking Cost-Efficient Cloud and AI Performance on AWS with AMD EPYC (sponsored by AMD)", "org": "AMD (Advanced Micro Devices)", "summary": "업계 사례를 통해 AWS와 AI 적용 방향을 살펴보는 세션."}, {"time": "11:00 - 18:00", "code": "AIM204", "lang": "KR", "level": "Intermediate", "title": "AI-DLC AI 개발 서바이벌 — 6시간 안에 서비스 런칭하라", "org": "AWS/파트너", "summary": "개발 생산성과 AI 기반 개발 프로세스 혁신을 다루는 세션."}, {"time": "11:10 - 11:50", "code": "IND234", "lang": "KR", "level": "Intermediate", "title": "숏폼 시대, GS SHOP의 영상기반 AI 상품추천플랫폼 구축기", "org": "AWS, GS 리테일", "summary": "업계 사례를 통해 AWS와 AI 적용 방향을 살펴보는 세션."}, {"time": "11:10 - 11:50", "code": "IND213", "lang": "KR", "level": "Intermediate", "title": "웅진씽크빅의 AI-DLC를 활용한 교육자용 AI 에이전트 구축기", "org": "AWS, 웅진씽크빅", "summary": "AI 에이전트 설계, 운영, 자동화 활용 사례를 다루는 세션."}, {"time": "11:10 - 11:50", "code": "IND216", "lang": "KR", "level": "Intermediate", "title": "현대자동차의 AI 기반 마켓인텔리전스 혁신 (AI for MI)", "org": "현대자동차", "summary": "업계 사례를 통해 AWS와 AI 적용 방향을 살펴보는 세션."}, {"time": "11:10 - 11:50", "code": "WPS105", "lang": "KR", "level": "Foundational", "title": "AI G3 코리아: NIPA와 AWS가 만드는 공공 혁신", "org": "정보통신산업진흥원 NIPA", "summary": "업계 사례를 통해 AWS와 AI 적용 방향을 살펴보는 세션."}, {"time": "11:10 - 11:50", "code": "IND226", "lang": "KR", "level": "Intermediate", "title": "Amazon's AI Strategy", "org": "AWS", "summary": "업계 사례를 통해 AWS와 AI 적용 방향을 살펴보는 세션."}, {"time": "11:10 - 11:50", "code": "IND105", "lang": "EN", "level": "Foundational", "title": "AWS 피지컬 AI로 실현하는 기업의 차세대 혁신 전략", "org": "AWS", "summary": "피지컬 AI·로보틱스·실세계 학습 인프라에 초점을 둔 세션."}, {"time": "11:10 - 11:50", "code": "IND208", "lang": "KR", "level": "Intermediate", "title": "KBaaS, 금융이 플랫폼 속으로 : KB국민은행의 임베디드 금융 전략과 API 인프라 현대화", "org": "AWS, KB국민은행", "summary": "레거시 현대화와 클라우드 전환 방법론·실전 사례를 다루는 세션."}, {"time": "11:10 - 11:50", "code": "IND203", "lang": "KR", "level": "Intermediate", "title": "Kiro CLI로 실현한 여기어때의 데이터베이스 현대화", "org": "AWS, 여기어때컴퍼니", "summary": "레거시 현대화와 클라우드 전환 방법론·실전 사례를 다루는 세션."}, {"time": "11:10 - 11:50", "code": "IND228", "lang": "KR", "level": "Intermediate", "title": "SK텔레콤, 이제는 AI에게 필요한 데이터 플랫폼으로", "org": "AWS, SK텔레콤", "summary": "AI 활용을 위한 데이터 플랫폼·검색·분석 기반을 다루는 세션."}, {"time": "11:30 - 11:50", "code": "ANT304", "lang": "KR", "level": "Advanced", "title": "쿠팡의 Redshift 멀티 클러스터 아키텍처 최적화 전략", "org": "Coupang", "summary": "AI 활용을 위한 데이터 플랫폼·검색·분석 기반을 다루는 세션."}, {"time": "12:50 - 13:10", "code": "DEV206", "lang": "KR", "level": "Intermediate", "title": "Amazon Bedrock Knowledge base와 S3 Vectors로 스트리밍 AI 챗봇 구축하기", "org": "Hanbit+", "summary": "AI 활용을 위한 데이터 플랫폼·검색·분석 기반을 다루는 세션."}, {"time": "12:50 - 13:30", "code": "WPS103", "lang": "KR", "level": "Foundational", "title": "국방 AX: AI와 클라우드로 재편되는 미래 전쟁 구조", "org": "AWS, LIG D&A, KIM & CHANG, 국가인공지능전략위원회 지원단 해군AX담당", "summary": "업계 사례를 통해 AWS와 AI 적용 방향을 살펴보는 세션."}, {"time": "12:50 - 13:30", "code": "IND225", "lang": "KR", "level": "Intermediate", "title": "삼성전자의 에이전틱 AI 전략-개발혁신과 AIOps 여정", "org": "삼성전자", "summary": "AI를 활용한 운영 자동화·관측성·장애 대응 사례 중심 세션."}, {"time": "12:50 - 13:30", "code": "IND224", "lang": "KR", "level": "Intermediate", "title": "피지컬 AI 기업 Config의 AWS 기반 Robotics Foundation Model 개발 여정", "org": "Config", "summary": "피지컬 AI·로보틱스·실세계 학습 인프라에 초점을 둔 세션."}, {"time": "12:50 - 13:30", "code": "IND212", "lang": "KR", "level": "Intermediate", "title": "AB180이 SaaS 에이전틱 AI를 설계하는 방법", "org": "AWS, AB180", "summary": "업계 사례를 통해 AWS와 AI 적용 방향을 살펴보는 세션."}, {"time": "12:50 - 13:30", "code": "IND233", "lang": "KR", "level": "Intermediate", "title": "AMOREPACIFIC의 AWS 기반 AI뷰티테크 플랫폼 서비스", "org": "AWS, AMOREPACIFIC", "summary": "업계 사례를 통해 AWS와 AI 적용 방향을 살펴보는 세션."}, {"time": "12:50 - 13:30", "code": "IND204", "lang": "KR", "level": "Intermediate", "title": "AWS Transform을 통한 놀유니버스의 .NET 현대화", "org": "AWS, 놀유니버스", "summary": "레거시 현대화와 클라우드 전환 방법론·실전 사례를 다루는 세션."}, {"time": "12:50 - 13:30", "code": "IND206", "lang": "KR", "level": "Intermediate", "title": "Convert To AI-Ready Data 미래에셋증권의 GraphRAG 기반 상품지식DB 구축기", "org": "AWS, 미래에셋증권", "summary": "AI 활용을 위한 데이터 플랫폼·검색·분석 기반을 다루는 세션."}, {"time": "12:50 - 13:30", "code": "IND302", "lang": "KR", "level": "Advanced", "title": "K-POP 글로벌 라이브: Mnet+ 4K와 AI 자막", "org": "AWS, CJ ENM Mnet Plus", "summary": "업계 사례를 통해 AWS와 AI 적용 방향을 살펴보는 세션."}, {"time": "12:50 - 13:30", "code": "IND210", "lang": "KR", "level": "Intermediate", "title": "POSCO 광양제철소 설비 예지정비 혁신: AWS Kiro와 MLOps", "org": "AWS, 포스코", "summary": "모델 학습·배포·MLOps 최적화 전략을 소개하는 세션."}, {"time": "13:20 - 13:40", "code": "AIM402", "lang": "KR", "level": "Expert", "title": "AI 기반 복원력 테스트와 재해 복구", "org": "AWS", "summary": "업계 사례를 통해 AWS와 AI 적용 방향을 살펴보는 세션."}, {"time": "13:50 - 14:10", "code": "PRT219-S", "lang": "KR", "level": "Intermediate", "title": "에이전트의 진화 (sponsored by Anthropic)", "org": "Anthropic", "summary": "AI 에이전트 설계, 운영, 자동화 활용 사례를 다루는 세션."}, {"time": "13:50 - 14:10", "code": "WPS102", "lang": "KR", "level": "Foundational", "title": "중앙대의료원_의료진이 직접 만드는 의료 AI", "org": "중앙대학교의료원", "summary": "업계 사례를 통해 AWS와 AI 적용 방향을 살펴보는 세션."}, {"time": "13:50 - 14:10", "code": "PRT214-S", "lang": "KR", "level": "Intermediate", "title": "책임감 없는 AI에이전트, 주인은 누구인가 (sponsored by Datadog)", "org": "Datadog", "summary": "AI 에이전트 설계, 운영, 자동화 활용 사례를 다루는 세션."}, {"time": "13:50 - 14:10", "code": "STP202", "lang": "KR", "level": "Intermediate", "title": "캐치테이블의 ClaudeCode on Bedrock Proxy를 통한 AI 운영 전략", "org": "와드 (캐치테이블)", "summary": "AI를 활용한 운영 자동화·관측성·장애 대응 사례 중심 세션."}, {"time": "13:50 - 14:10", "code": "PRT304-S", "lang": "KR", "level": "Advanced", "title": "Agentic 시대에 필요한 machine data 관리 전략 (sponsored by Splunk)", "org": "Splunk", "summary": "AI 에이전트 설계, 운영, 자동화 활용 사례를 다루는 세션."}, {"time": "13:50 - 14:10", "code": "PRT107-S", "lang": "KR", "level": "Foundational", "title": "AWS All-in 마이그레이션으로 실현한 SM하이플러스의 AI 모빌리티 전략 (sponsored by NDS)", "org": "엔디에스, NDS", "summary": "레거시 현대화와 클라우드 전환 방법론·실전 사례를 다루는 세션."}, {"time": "13:50 - 14:10", "code": "PRT205-S", "lang": "KR", "level": "Intermediate", "title": "AWS에서 LLM 프로젝트 구축기 — LLM 운영을 위한 5가지 운영 원칙 (sponsored by 스마일샤크, SmileShark)", "org": "스마일샤크, SmileShark", "summary": "AI를 활용한 운영 자동화·관측성·장애 대응 사례 중심 세션."}, {"time": "13:50 - 14:10", "code": "PRT303-S", "lang": "KR", "level": "Advanced", "title": "LLM and Agent Workloads with DRA GPU를 더 잘게, 더 똑똑하게 — DRAmatic하게(sponsored by GS네오텍)", "org": "GS 네오텍", "summary": "AI 에이전트 설계, 운영, 자동화 활용 사례를 다루는 세션."}, {"time": "13:50 - 14:10", "code": "PRT218-S", "lang": "KR", "level": "Intermediate", "title": "VMware 종속을 넘어 자율로, 삼성SDS와 함께하는 AX 전략 (sponsored by Samsung SDS)", "org": "삼성SDS", "summary": "업계 사례를 통해 AWS와 AI 적용 방향을 살펴보는 세션."}, {"time": "14:20 - 14:40", "code": "AIM304", "lang": "KR", "level": "Advanced", "title": "AWS 서버리스로 완성하는 확장 가능한 멀티 에이전트 시스템", "org": "AWS", "summary": "AI 에이전트 설계, 운영, 자동화 활용 사례를 다루는 세션."}, {"time": "14:30 - 15:10", "code": "IND304", "lang": "KR", "level": "Advanced", "title": "당근의 CloudHSM/KMS기반 대규모 서명키관리 시스템구축기", "org": "AWS, 당근", "summary": "업계 사례를 통해 AWS와 AI 적용 방향을 살펴보는 세션."}, {"time": "14:30 - 15:10", "code": "WPS101", "lang": "KR", "level": "Foundational", "title": "룰루메딕 의료마이데이터 플랫폼 혁신사례", "org": "룰루메딕", "summary": "AI 활용을 위한 데이터 플랫폼·검색·분석 기반을 다루는 세션."}, {"time": "14:30 - 15:10", "code": "IND211", "lang": "EN", "level": "Intermediate", "title": "바비톡의 AX여정: 에이전틱 AI로 K-beauty를 바꾸다", "org": "AWS, 바비톡", "summary": "업계 사례를 통해 AWS와 AI 적용 방향을 살펴보는 세션."}, {"time": "14:30 - 15:10", "code": "IND207", "lang": "KR", "level": "Intermediate", "title": "현대카드 데이터 사이언스 플랫폼 진화 여정: Hybrid to Coding 에이전트", "org": "AWS, 현대카드", "summary": "AI 에이전트 설계, 운영, 자동화 활용 사례를 다루는 세션."}, {"time": "14:30 - 15:10", "code": "IND227", "lang": "KR", "level": "Intermediate", "title": "현장이 만드는 AI 혁신: GS칼텍스의 제조 AI 전환 여정", "org": "GS 칼텍스", "summary": "업계 사례를 통해 AWS와 AI 적용 방향을 살펴보는 세션."}, {"time": "14:30 - 15:10", "code": "IND222", "lang": "KR", "level": "Intermediate", "title": "AI가 바꾸는 여행 산업의 무대 뒤: 하나투어, 제주항공의 업무혁신", "org": "AWS, 하나투어, AK아이에스", "summary": "업계 사례를 통해 AWS와 AI 적용 방향을 살펴보는 세션."}, {"time": "14:30 - 15:10", "code": "IND230", "lang": "KR", "level": "Intermediate", "title": "AWS 위에서 만드는 로봇의 미래: 리얼월드의 RFM 학습과 위로보틱스의 휴머노이드 조작기능 구현", "org": "위로보틱스, RLWRLD", "summary": "피지컬 AI·로보틱스·실세계 학습 인프라에 초점을 둔 세션."}, {"time": "14:30 - 15:10", "code": "IND303", "lang": "KR", "level": "Advanced", "title": "LG U+의 에이전틱 AI 기반 대규모 마이그레이션 여정", "org": "AWS, LG U+", "summary": "레거시 현대화와 클라우드 전환 방법론·실전 사례를 다루는 세션."}, {"time": "14:30 - 15:10", "code": "IND217", "lang": "KR", "level": "Intermediate", "title": "LG전자, 에이전틱 AI 기반 멀티에이전트 플랫폼 구축을 통한 업무혁신", "org": "LG전자 한국영업본부", "summary": "AI 에이전트 설계, 운영, 자동화 활용 사례를 다루는 세션."}, {"time": "14:50 - 15:10", "code": "DEV311", "lang": "KR", "level": "Advanced", "title": "2천만 디바이스 요청을 처리하는 API Gateway 마이그레이션 생존기", "org": "LG U+", "summary": "레거시 현대화와 클라우드 전환 방법론·실전 사례를 다루는 세션."}, {"time": "15:20 - 15:40", "code": "TNC201", "lang": "KR", "level": "Intermediate", "title": "AWS Transform으로 클라우드 여정 가속화", "org": "AWS", "summary": "레거시 현대화와 클라우드 전환 방법론·실전 사례를 다루는 세션."}, {"time": "15:30 - 15:50", "code": "PRT401-S", "lang": "KR", "level": "Expert", "title": "복잡함 속의 질서 : Beyond AI Adoption in Agentic Era (sponsored by 메가존클라우드, MegazoneCloud)", "org": "메가존클라우드, MegazoneCloud", "summary": "AI 에이전트 설계, 운영, 자동화 활용 사례를 다루는 세션."}, {"time": "15:30 - 15:50", "code": "PRT209-S", "lang": "KR", "level": "Intermediate", "title": "에버랜드의 VMware에서 Nutanix 클라우드 클러스터로 마이그레이션 여정 (sponsored by Nutanix)", "org": "Nutanix", "summary": "레거시 현대화와 클라우드 전환 방법론·실전 사례를 다루는 세션."}, {"time": "15:30 - 15:50", "code": "IND214", "lang": "KR", "level": "Intermediate", "title": "요기요의 AIOps: SRE 운영의 콘솔 탈출기", "org": "AWS, 위대한상상", "summary": "AI를 활용한 운영 자동화·관측성·장애 대응 사례 중심 세션."}, {"time": "15:30 - 15:50", "code": "IND235", "lang": "KR", "level": "Intermediate", "title": "퀀트 개발 혁신: Bedrock 기반 자율형 AI 알파 팩토리", "org": "퀀팃", "summary": "개발 생산성과 AI 기반 개발 프로세스 혁신을 다루는 세션."}, {"time": "15:30 - 15:50", "code": "PRT101-S", "lang": "KR", "level": "Foundational", "title": "하나의 플랫폼으로 실현하는 성공적인 엔터프라이즈 AI 활용 (sponsored by 데이터이쿠, Dataiku)", "org": "데이터이쿠, Dataiku", "summary": "AI 활용을 위한 데이터 플랫폼·검색·분석 기반을 다루는 세션."}, {"time": "15:30 - 15:50", "code": "PRT105-S", "lang": "KR", "level": "Foundational", "title": "AI ‘개발’에서 ‘운영’으로: 엔터프라이즈 AI 전환 (sponsored by 베스핀글로벌 / BESPIN GLOBAL)", "org": "베스핀글로벌 / BESPIN GLOBAL", "summary": "AI를 활용한 운영 자동화·관측성·장애 대응 사례 중심 세션."}, {"time": "15:30 - 15:50", "code": "PRT211-S", "lang": "KR", "level": "Intermediate", "title": "AI 컨시어지: 기억하는 AI가 만드는 다음 세대 고객 경험 (sponsored by 센드버드 / Sendbird)", "org": "센드버드 / Sendbird", "summary": "고객 접점 서비스와 비즈니스 경험 혁신 사례를 공유하는 세션."}, {"time": "15:30 - 15:50", "code": "WPS104", "lang": "KR", "level": "Foundational", "title": "AWS로 완성한 로봇 파운데이션 모델", "org": "한국과학기술원 KAIST", "summary": "피지컬 AI·로보틱스·실세계 학습 인프라에 초점을 둔 세션."}, {"time": "15:30 - 15:50", "code": "IND232", "lang": "KR", "level": "Intermediate", "title": "SMUS 기반 전사 MLOps 플랫폼으로 실현한 데이터 혁명", "org": "AWS, 현대지에프홀딩스", "summary": "AI 활용을 위한 데이터 플랫폼·검색·분석 기반을 다루는 세션."}, {"time": "16:10 - 16:50", "code": "WPS201", "lang": "KR", "level": "Intermediate", "title": "규제 환경에서의 통제 가능한 AI 에이전트 아키텍처", "org": "AWS", "summary": "AI 에이전트 설계, 운영, 자동화 활용 사례를 다루는 세션."}, {"time": "16:10 - 16:50", "code": "IND205", "lang": "KR", "level": "Intermediate", "title": "마이리얼트립의 AI 네이티브 소수정예 팀: 일하는 방식의 재정의", "org": "AWS, 마이리얼트립", "summary": "업계 사례를 통해 AWS와 AI 적용 방향을 살펴보는 세션."}, {"time": "16:10 - 16:50", "code": "IND209", "lang": "KR", "level": "Intermediate", "title": "빗썸은 생성형 AI를 어떻게 안전하게 운영하는가: Claude Code on Amazon Bedrock", "org": "AWS, 빗썸", "summary": "AI를 활용한 운영 자동화·관측성·장애 대응 사례 중심 세션."}, {"time": "16:10 - 16:50", "code": "IND301", "lang": "KR", "level": "Advanced", "title": "새벽 3시, 18만 개의 모델이 대신 판단한다 : 넥슨의 에이전틱 Ops", "org": "AWS, 넥슨코리아", "summary": "업계 사례를 통해 AWS와 AI 적용 방향을 살펴보는 세션."}, {"time": "16:10 - 16:50", "code": "IND231", "lang": "KR", "level": "Intermediate", "title": "피지컬 AI 학습을 위한 데이터 전략: 실 데이터와 합성 데이터로 Sim-to-Real 가속화", "org": "스트라드비젼, 바이프로스트", "summary": "AI 활용을 위한 데이터 플랫폼·검색·분석 기반을 다루는 세션."}, {"time": "16:10 - 16:50", "code": "IND201", "lang": "KR", "level": "Intermediate", "title": "혁신가와 리더의 대담 - AI로 이끄는 비즈니스 혁신", "org": "AWS, 우아한형제들, 삼성전자, TwelveLabs", "summary": "업계 사례를 통해 AWS와 AI 적용 방향을 살펴보는 세션."}, {"time": "16:10 - 16:50", "code": "IND229", "lang": "KR", "level": "Intermediate", "title": "AI로 잇는 쇼핑 경험: 롯데백화점의 AI 에이전트 구축기", "org": "AWS, 롯데백화점", "summary": "AI 에이전트 설계, 운영, 자동화 활용 사례를 다루는 세션."}, {"time": "16:10 - 16:50", "code": "IND215", "lang": "KR", "level": "Intermediate", "title": "Multi-Agent로 AIOps를 혁신하다: 야놀자의 Bedrock AgentCore 구축 사례", "org": "AWS, 야놀자", "summary": "AI 에이전트 설계, 운영, 자동화 활용 사례를 다루는 세션."}, {"time": "16:10 - 16:50", "code": "IND221", "lang": "KR", "level": "Intermediate", "title": "SK인텔릭스가 구현하는 에이전틱 AI Robotics의 미래", "org": "SK인텔릭스, SK 인텔릭스", "summary": "피지컬 AI·로보틱스·실세계 학습 인프라에 초점을 둔 세션."}]}, {"day_name": "5월 21일(목)", "count": 55, "rows": [{"time": "09:30 - 10:40", "code": "KEY002", "lang": "KR", "level": "-", "title": "기조연설 - AI Day", "org": "AWS/파트너", "summary": "행사의 큰 방향성과 핵심 메시지를 빠르게 파악하기 좋은 키노트 세션."}, {"time": "11:00 - 11:20", "code": "STP203", "lang": "KR", "level": "Intermediate", "title": "결제 연동, AI 코딩 에이전트가 알아서 뚝딱", "org": "StepPay", "summary": "AI 에이전트 설계, 운영, 자동화 활용 사례를 다루는 세션."}, {"time": "11:00 - 16:00", "code": "AIM203", "lang": "KR", "level": "Intermediate", "title": "AWS AI League — 최강의 AI 에이전트를 만들어라", "org": "AWS", "summary": "AI 에이전트 설계, 운영, 자동화 활용 사례를 다루는 세션."}, {"time": "11:10 - 11:50", "code": "AIM305", "lang": "KR", "level": "Advanced", "title": "21억 사용자규모 삼성 어카운트의 에이전틱 AIOps on AWS", "org": "AWS, 삼성전자", "summary": "AI를 활용한 운영 자동화·관측성·장애 대응 사례 중심 세션."}, {"time": "11:10 - 11:50", "code": "MAM202", "lang": "KR", "level": "Intermediate", "title": "기술 부채의 한계를 넘어 AI-Ready 비즈니스로: AWS가 제안하는 에이전틱 AI 마이그레이션", "org": "AWS", "summary": "레거시 현대화와 클라우드 전환 방법론·실전 사례를 다루는 세션."}, {"time": "11:10 - 11:50", "code": "CMP401", "lang": "KR", "level": "Expert", "title": "대규모 분산 학습 AWS ParallelCluster 로 시작하기", "org": "AWS", "summary": "모델 학습·배포·MLOps 최적화 전략을 소개하는 세션."}, {"time": "11:10 - 11:50", "code": "DVT201", "lang": "KR", "level": "Intermediate", "title": "에이전틱 AI로 완전히 달라지는 소프트웨어와 개발 방법", "org": "AWS", "summary": "개발 생산성과 AI 기반 개발 프로세스 혁신을 다루는 세션."}, {"time": "11:10 - 11:50", "code": "ANT305", "lang": "KR", "level": "Advanced", "title": "에이전틱 AI를 위한 데이터 실무 가이드", "org": "AWS", "summary": "AI 활용을 위한 데이터 플랫폼·검색·분석 기반을 다루는 세션."}, {"time": "11:10 - 11:50", "code": "DEV304", "lang": "KR", "level": "Advanced", "title": "장애에 강한 팀: 서버리스 온콜과 서비스 모니터링", "org": "당근, CJ 올리브영", "summary": "AI를 활용한 운영 자동화·관측성·장애 대응 사례 중심 세션."}, {"time": "11:10 - 11:50", "code": "SEC301", "lang": "KR", "level": "Advanced", "title": "AI 보안심화: AI 워크로드에 대한 심층방어 체계 구축", "org": "AWS", "summary": "AI·클라우드 환경의 보안 통제와 방어 전략을 소개하는 세션."}, {"time": "11:10 - 11:50", "code": "BIZ203", "lang": "KR", "level": "Intermediate", "title": "Amazon Connect AI Agent가 다시 쓰는 고객 경험 : 불만을 감동으로", "org": "AWS", "summary": "AI 에이전트 설계, 운영, 자동화 활용 사례를 다루는 세션."}, {"time": "11:10 - 11:50", "code": "AIM301", "lang": "KR", "level": "Advanced", "title": "Superb AI의 HyperPod 기반 비전 파운데이션 모델 구축 여정", "org": "AWS, Superb AI", "summary": "모델 학습·배포·MLOps 최적화 전략을 소개하는 세션."}, {"time": "11:30 - 11:50", "code": "TNC202", "lang": "KR", "level": "Intermediate", "title": "Amazon Quick의 에이전틱 기능 탐색", "org": "AWS", "summary": "업계 사례를 통해 AWS와 AI 적용 방향을 살펴보는 세션."}, {"time": "12:50 - 13:10", "code": "DEV310", "lang": "KR", "level": "Advanced", "title": "AgentCore/Lambda를 활용한 100% Serverless 에이전틱 AI 구현 및 운영", "org": "RECON Labs", "summary": "AI 에이전트 설계, 운영, 자동화 활용 사례를 다루는 세션."}, {"time": "12:50 - 13:30", "code": "CMP202", "lang": "KR", "level": "Intermediate", "title": "인퍼런스와 모델 퍼포먼스 최적화를 위한 EKS 아키텍처", "org": "AWS, LG U+", "summary": "클라우드 아키텍처와 서버리스·플랫폼 구현 패턴 중심 세션."}, {"time": "12:50 - 13:30", "code": "AIM302", "lang": "KR", "level": "Advanced", "title": "하이퍼커넥트의 HyperPod 기반 Slurm on EKS 도입기", "org": "AWS, 하이퍼커넥트", "summary": "모델 학습·배포·MLOps 최적화 전략을 소개하는 세션."}, {"time": "12:50 - 13:30", "code": "SEC201", "lang": "KR", "level": "Intermediate", "title": "Agent-Driven 개발 환경, 보안 강화 전략은?", "org": "AWS", "summary": "AI 에이전트 설계, 운영, 자동화 활용 사례를 다루는 세션."}, {"time": "12:50 - 13:30", "code": "DVT203", "lang": "KR", "level": "Intermediate", "title": "AI 기반 개발 라이프사이클(AI-DLC) 소개", "org": "AWS, LG전자", "summary": "개발 생산성과 AI 기반 개발 프로세스 혁신을 다루는 세션."}, {"time": "12:50 - 13:30", "code": "MAM301", "lang": "KR", "level": "Advanced", "title": "AI 에이전트, AgentCore로 프로덕션까지", "org": "AWS, LG전자", "summary": "AI 에이전트 설계, 운영, 자동화 활용 사례를 다루는 세션."}, {"time": "12:50 - 13:30", "code": "ANT201", "lang": "KR", "level": "Intermediate", "title": "AI-Ready Data: 에이전틱 AI 시대, 데이터가 답이다", "org": "AWS", "summary": "AI 활용을 위한 데이터 플랫폼·검색·분석 기반을 다루는 세션."}, {"time": "12:50 - 13:30", "code": "BIZ202", "lang": "KR", "level": "Intermediate", "title": "Amazon Connect를 활용한 에이전틱 AI 기반 고객 경험 혁신", "org": "AWS", "summary": "고객 접점 서비스와 비즈니스 경험 혁신 사례를 공유하는 세션."}, {"time": "12:50 - 13:30", "code": "DEV307", "lang": "KR", "level": "Advanced", "title": "Kiro Spec 모드 가속 가이드 & 서버리스 CDC 레이크하우스", "org": "AWS, AWSKRUG, 스테이지랩스", "summary": "클라우드 아키텍처와 서버리스·플랫폼 구현 패턴 중심 세션."}, {"time": "12:50 - 13:30", "code": "DVT205", "lang": "KR", "level": "Intermediate", "title": "Strands Agents와 함께 스스로 진화하는 AI 에이전트", "org": "AWS", "summary": "AI 에이전트 설계, 운영, 자동화 활용 사례를 다루는 세션."}, {"time": "13:20 - 13:40", "code": "CNS201", "lang": "KR", "level": "Intermediate", "title": "AI-DLC 도입 성공 전략: 고객과 함께한 AI-DLC 여정", "org": "AWS", "summary": "개발 생산성과 AI 기반 개발 프로세스 혁신을 다루는 세션."}, {"time": "13:50 - 14:10", "code": "PRT206-S", "lang": "KR", "level": "Intermediate", "title": "속도와 제어를 동시에 - Cloudflare에서 AI 에이전트 구축하기 (sponsored by 클라우드플레어/Cloudflare)", "org": "(국문) 클라우드플레어 (영문) Cloudflare", "summary": "AI 에이전트 설계, 운영, 자동화 활용 사례를 다루는 세션."}, {"time": "13:50 - 14:10", "code": "STP201", "lang": "KR", "level": "Intermediate", "title": "AI를 더 잘 쓰는 환경을 위한 라포랩스 AI 플랫폼 개발기", "org": "라포랩스", "summary": "개발 생산성과 AI 기반 개발 프로세스 혁신을 다루는 세션."}, {"time": "13:50 - 14:10", "code": "PRT213-S", "lang": "KR", "level": "Intermediate", "title": "Amazon Bedrock 기반 GitLab Duo 에이전트 플랫폼으로 혁신 가속화 (sponsored by Gitlab)", "org": "Gitlab", "summary": "AI 에이전트 설계, 운영, 자동화 활용 사례를 다루는 세션."}, {"time": "13:50 - 14:10", "code": "PRT302-S", "lang": "KR", "level": "Advanced", "title": "AWS AI와 서버리스로 구축하는 완성차 지능형 상품 전략 플랫폼 (sponsored by 이테크시스템 / ETECH SYSTEM)", "org": "이테크시스템 / ETECH SYSTEM", "summary": "클라우드 아키텍처와 서버리스·플랫폼 구현 패턴 중심 세션."}, {"time": "13:50 - 14:10", "code": "PRT221-S", "lang": "KR", "level": "Intermediate", "title": "Enterprise AI Transformation: Agentic AI로 만드는 실질적인 비즈니스 성과 (sponsored by LG CNS)", "org": "LG CNS", "summary": "AI 에이전트 설계, 운영, 자동화 활용 사례를 다루는 세션."}, {"time": "13:50 - 14:10", "code": "PRT207-S", "lang": "KR", "level": "Intermediate", "title": "LLM 애플리케이션 프로덕션 운영, Observability로 풀다 (sponsored by 와탭, WhaTap)", "org": "와탭, WhaTap", "summary": "AI를 활용한 운영 자동화·관측성·장애 대응 사례 중심 세션."}, {"time": "13:50 - 14:10", "code": "AIM201", "lang": "KR", "level": "Intermediate", "title": "Nova Forge와 Bedrock RFT로 모델 성능 극대화", "org": "AWS", "summary": "업계 사례를 통해 AWS와 AI 적용 방향을 살펴보는 세션."}, {"time": "13:50 - 14:10", "code": "PRT301-S", "lang": "KR", "level": "Advanced", "title": "Secure AI by Design (sponsored by Palo Alto Networks)", "org": "Palo Alto Networks", "summary": "AI·클라우드 환경의 보안 통제와 방어 전략을 소개하는 세션."}, {"time": "13:50 - 14:10", "code": "PRT201-S", "lang": "KR", "level": "Intermediate", "title": "SK AX가 구현한 SageMaker 기반 분석가와 현업의 통합 AI 환경 (sponsored by SK AX)", "org": "SK AX", "summary": "모델 학습·배포·MLOps 최적화 전략을 소개하는 세션."}, {"time": "13:50 - 14:10", "code": "PRT215-S", "lang": "KR", "level": "Intermediate", "title": "Unlocking Cost-Efficient Cloud and AI Performance on AWS with AMD EPYC (sponsored by AMD)", "org": "AMD (Advanced Micro Devices)", "summary": "업계 사례를 통해 AWS와 AI 적용 방향을 살펴보는 세션."}, {"time": "14:30 - 15:10", "code": "DVT304", "lang": "KR", "level": "Advanced", "title": "200개국 삼성 스마트 TV 앱 데이터를 자연어로 묻다: 에이전틱 AI on AWS", "org": "AWS, 삼성전자", "summary": "AI 활용을 위한 데이터 플랫폼·검색·분석 기반을 다루는 세션."}, {"time": "14:30 - 15:10", "code": "BIZ204", "lang": "KR", "level": "Intermediate", "title": "20만 Amazonian의 AI 내재화 성공 경험, 그리고 Quick Desktop", "org": "AWS", "summary": "업계 사례를 통해 AWS와 AI 적용 방향을 살펴보는 세션."}, {"time": "14:30 - 15:10", "code": "ANT303", "lang": "KR", "level": "Advanced", "title": "밑줄 쫙! AI 성공 네비게이터 SageMaker Catalog", "org": "AWS", "summary": "AI 활용을 위한 데이터 플랫폼·검색·분석 기반을 다루는 세션."}, {"time": "14:30 - 15:10", "code": "MAM202", "lang": "KR", "level": "Intermediate", "title": "오래된 IT 시스템 현대화, 에이전틱 AI로 쉽게", "org": "AWS", "summary": "레거시 현대화와 클라우드 전환 방법론·실전 사례를 다루는 세션."}, {"time": "14:30 - 15:10", "code": "SEC302", "lang": "KR", "level": "Advanced", "title": "Amazon Bedrock AgentCore 로 AI 시대의 Zero Trust 구현하기", "org": "AWS", "summary": "AI 에이전트 설계, 운영, 자동화 활용 사례를 다루는 세션."}, {"time": "14:30 - 15:10", "code": "CMP201", "lang": "KR", "level": "Intermediate", "title": "AWS 차세대 AI 인프라: 리전에서 AI Factory까지", "org": "AWS", "summary": "업계 사례를 통해 AWS와 AI 적용 방향을 살펴보는 세션."}, {"time": "14:30 - 15:10", "code": "DEV305", "lang": "KR", "level": "Advanced", "title": "IaC 기반 EKS 멀티테넌시와 Sidecar-less 네트워킹", "org": "네오위즈파트너스, 알고릭스코퍼레이션", "summary": "클라우드 아키텍처와 서버리스·플랫폼 구현 패턴 중심 세션."}, {"time": "14:30 - 15:10", "code": "AIM401", "lang": "KR", "level": "Expert", "title": "SageMaker AI MLOps, Nova 2 기반 멀티 에이전트로 한 단계 업그레이드", "org": "AWS", "summary": "AI 에이전트 설계, 운영, 자동화 활용 사례를 다루는 세션."}, {"time": "14:50 - 15:10", "code": "DEV101", "lang": "KR", "level": "Foundational", "title": "AWS 커뮤니티 리더들에게 듣는 커뮤니티를 통한 성장", "org": "AWS, AWSKRUG", "summary": "업계 사례를 통해 AWS와 AI 적용 방향을 살펴보는 세션."}, {"time": "15:20 - 15:40", "code": "CNS401", "lang": "KR", "level": "Expert", "title": "EKS LLM 서빙, ElastiCache로 추론 성능 최적화", "org": "AWS", "summary": "클라우드 아키텍처와 서버리스·플랫폼 구현 패턴 중심 세션."}, {"time": "15:30 - 15:50", "code": "PRT102-S", "lang": "KR", "level": "Foundational", "title": "3가지 관점으로 살펴보는 Red Hat OpenShift Service on AWS(ROSA)를 활용한 현대화의 새로운 접근 방식 (sponsored by Red Hat)", "org": "Red Hat", "summary": "레거시 현대화와 클라우드 전환 방법론·실전 사례를 다루는 세션."}, {"time": "15:30 - 15:50", "code": "PRT220-S", "lang": "KR", "level": "Intermediate", "title": "당신의 AI 환경은 안녕하신지요? (sponsored by Zscaler)", "org": "Zscaler", "summary": "업계 사례를 통해 AWS와 AI 적용 방향을 살펴보는 세션."}, {"time": "15:30 - 15:50", "code": "DEV308", "lang": "KR", "level": "Advanced", "title": "맥 미니 없이도 서버리스로 만드는 AI Cloud 에이전트", "org": "미러", "summary": "AI 에이전트 설계, 운영, 자동화 활용 사례를 다루는 세션."}, {"time": "15:30 - 15:50", "code": "DVT302", "lang": "KR", "level": "Advanced", "title": "에이전트 성능 평가와 개선: 개발부터 운영까지", "org": "AWS", "summary": "AI 에이전트 설계, 운영, 자동화 활용 사례를 다루는 세션."}, {"time": "15:30 - 15:50", "code": "AIM202", "lang": "KR", "level": "Intermediate", "title": "우아한형제들의 Nova 2 프로덕션 적용 여정", "org": "우아한형제들", "summary": "업계 사례를 통해 AWS와 AI 적용 방향을 살펴보는 세션."}, {"time": "15:30 - 15:50", "code": "PRT103-S", "lang": "KR", "level": "Foundational", "title": "MUSINSA - ClickHouse Cloud를 활용한 Audience Engine 및 다각적 비즈니스 확장을 위한 전략 (sponsored by ClickHouse)", "org": "ClickHouse", "summary": "업계 사례를 통해 AWS와 AI 적용 방향을 살펴보는 세션."}, {"time": "15:30 - 15:50", "code": "PRT106-S", "lang": "KR", "level": "Foundational", "title": "Notion: API를 넘어 플랫폼으로 (sponsored by 노션, Notion)", "org": "노션, Notion", "summary": "클라우드 아키텍처와 서버리스·플랫폼 구현 패턴 중심 세션."}, {"time": "15:30 - 15:50", "code": "PRT217-S", "lang": "KR", "level": "Intermediate", "title": "Oracle AI Database@AWS! AWS는 그대로, Exadata로 더욱 강력하게!(sponsored by Oracle)", "org": "Oracle", "summary": "업계 사례를 통해 AWS와 AI 적용 방향을 살펴보는 세션."}, {"time": "15:30 - 15:50", "code": "PRT212-S", "lang": "KR", "level": "Intermediate", "title": "Snowflake + AWS 통합 AI 전략: Cortex Code가 연결하는 데이터와 인텔리전스 (sponsored by Snowflake)", "org": "Snowflake", "summary": "AI 활용을 위한 데이터 플랫폼·검색·분석 기반을 다루는 세션."}, {"time": "16:10 - 16:50", "code": "MAM302", "lang": "KR", "level": "Advanced", "title": "AIOps 도전과 실전: AI SecOps에서 DevOps 에이전트까지", "org": "AWS, 삼성전자", "summary": "AI 에이전트 설계, 운영, 자동화 활용 사례를 다루는 세션."}, {"time": "16:10 - 16:50", "code": "DVT305", "lang": "KR", "level": "Advanced", "title": "Nova Act & Strands Agent 실전: AI 에이전트로 개발 워크플로 자동화하기", "org": "AWS", "summary": "AI 에이전트 설계, 운영, 자동화 활용 사례를 다루는 세션."}]}];
+  const selections = new Set();
+  const STORAGE_KEYS = {
+    selections: 'awsSummitSelectionsV3',
+    orientation: 'awsSummitExportOrientationV1'
+  };
+
+  function getOrientationSelect() {
+    return document.getElementById('exportOrientationSelect');
+  }
+
+  function getExportOrientation() {
+    return getOrientationSelect()?.value === 'portrait' ? 'portrait' : 'landscape';
+  }
+
+  function persistState() {
+    try {
+      localStorage.setItem(STORAGE_KEYS.selections, JSON.stringify([...selections]));
+      localStorage.setItem(STORAGE_KEYS.orientation, getExportOrientation());
+    } catch (error) {
+      console.warn('localStorage save failed', error);
+    }
+  }
+
+  function restoreState() {
+    try {
+      const rawSelections = localStorage.getItem(STORAGE_KEYS.selections);
+      if (rawSelections) {
+        const validIds = new Set(getAllRows().map(row => row.id));
+        for (const id of JSON.parse(rawSelections)) {
+          if (validIds.has(id)) selections.add(id);
+        }
+      }
+      const savedOrientation = localStorage.getItem(STORAGE_KEYS.orientation);
+      if (savedOrientation && getOrientationSelect()) {
+        getOrientationSelect().value = savedOrientation === 'portrait' ? 'portrait' : 'landscape';
+      }
+    } catch (error) {
+      console.warn('localStorage restore failed', error);
+    }
+  }
+
+  function escapeHtml(value) {
+    return String(value)
+      .replace(/&/g, '&amp;')
+      .replace(/</g, '&lt;')
+      .replace(/>/g, '&gt;')
+      .replace(/"/g, '&quot;')
+      .replace(/'/g, '&#39;');
+  }
+
+  function parseRange(dayName, timeRange) {
+    const [startRaw, endRaw] = timeRange.split('-').map(v => v.trim());
+    const [sH, sM] = startRaw.split(':').map(Number);
+    let [eH, eM] = endRaw.split(':').map(Number);
+    if (Number.isFinite(sH) && Number.isFinite(eH) && eH < sH) eH += 12;
+    return {
+      key: `${dayName}__${timeRange}`,
+      dayName,
+      start: sH * 60 + sM,
+      end: eH * 60 + eM,
+      label: timeRange
+    };
+  }
+
+  function overlaps(a, b) {
+    return a.dayName === b.dayName && a.start < b.end && b.start < a.end;
+  }
+
+  scheduleData.forEach(day => {
+    day.rows.forEach((row, index) => {
+      row.id = `${day.day_name}__${row.code}__${index}`;
+      row.range = parseRange(day.day_name, row.time);
+      row.dayName = day.day_name;
+    });
+  });
+
+  function renderScheduleTables() {
+    const container = document.getElementById('daysContainer');
+    container.innerHTML = scheduleData.map(day => `
+      <section class="day">
+        <h2>${escapeHtml(day.day_name)} <span class="muted">(${day.rows.length}개)</span></h2>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th style="width:70px">선택</th>
+                <th style="width:120px">시간</th>
+                <th style="width:110px">코드</th>
+                <th style="width:160px">트랙 정보</th>
+                <th style="width:380px">세션명</th>
+                <th style="width:220px">발표/기관</th>
+                <th>한 줄 요약</th>
+              </tr>
+            </thead>
+            <tbody>
+              ${day.rows.map(row => `
+                <tr class="session-row" data-session-id="${escapeHtml(row.id)}" data-day-name="${escapeHtml(row.dayName)}" data-start="${row.range.start}" data-end="${row.range.end}">
+                  <td class="select-cell">
+                    <label class="select-wrap">
+                      <input type="checkbox" class="session-checkbox" data-session-id="${escapeHtml(row.id)}" />
+                      <span class="select-label">선택</span>
+                    </label>
+                  </td>
+                  <td class="time">${escapeHtml(row.time)}</td>
+                  <td>${escapeHtml(row.code)}</td>
+                  <td>
+                    <span class="badge">${escapeHtml(row.lang)}</span>
+                    <span class="badge level-${escapeHtml(row.level)}">${escapeHtml(row.level)}</span>
+                  </td>
+                  <td><div class="title">${escapeHtml(row.title)}</div></td>
+                  <td class="muted">${escapeHtml(row.org)}</td>
+                  <td class="summary">${escapeHtml(row.summary)}</td>
+                </tr>
+              `).join('')}
+            </tbody>
+          </table>
+        </div>
+      </section>
+    `).join('');
+
+    document.querySelectorAll('.session-checkbox').forEach(box => {
+      box.addEventListener('change', onToggleSelection);
+    });
+  }
+
+  function getAllRows() {
+    return scheduleData.flatMap(day => day.rows);
+  }
+
+  function getSelectedRows() {
+    return getAllRows().filter(row => selections.has(row.id));
+  }
+
+  function onToggleSelection(event) {
+    const sessionId = event.target.dataset.sessionId;
+    if (event.target.checked) selections.add(sessionId);
+    else selections.delete(sessionId);
+    syncUI();
+  }
+
+  function hasConflict(targetRow, selectedRows) {
+    return selectedRows.some(row => row.id !== targetRow.id && overlaps(row.range, targetRow.range));
+  }
+
+  function syncTableState() {
+    const selectedRows = getSelectedRows();
+    document.querySelectorAll('.session-row').forEach(tr => {
+      const row = getAllRows().find(item => item.id === tr.dataset.sessionId);
+      const checkbox = tr.querySelector('.session-checkbox');
+      const checked = selections.has(row.id);
+      const conflict = !checked && hasConflict(row, selectedRows);
+      checkbox.checked = checked;
+      checkbox.disabled = conflict;
+      tr.classList.toggle('selected-row', checked);
+      tr.classList.toggle('conflict-disabled', conflict);
+      tr.setAttribute('aria-disabled', conflict ? 'true' : 'false');
+      if (conflict) checkbox.title = '선택한 세션과 시간이 겹쳐 선택할 수 없습니다.';
+      else checkbox.removeAttribute('title');
+    });
+  }
+
+  function renderSelectedBoard() {
+    const selected = getSelectedRows().sort((a, b) => a.dayName.localeCompare(b.dayName, 'ko') || a.range.start - b.range.start || a.title.localeCompare(b.title, 'ko'));
+    const groups = buildSelectedGroups();
+
+    const content = document.getElementById('selectedBoardContent');
+    document.getElementById('selectionCounter').textContent = `${selected.length}개 선택`;
+    document.getElementById('countDay1').textContent = groups.find(g => g.dayName.includes('5월 20일'))?.rows.length || 0;
+    document.getElementById('countDay2').textContent = groups.find(g => g.dayName.includes('5월 21일'))?.rows.length || 0;
+    document.getElementById('conflictNotice').textContent = getExportOrientation() === 'portrait' ? '세로형 다운로드' : '가로형 다운로드';
+
+    if (!selected.length) {
+      content.innerHTML = `<div class="empty-state">왼쪽 표에서 원하는 세션을 선택해 주세요.<br/>오른쪽에 선택한 세션만 별도 타임테이블로 정리됩니다.</div>`;
+      return;
+    }
+
+    content.innerHTML = groups.map(group => `
+      <section class="selected-day">
+        <h4>${escapeHtml(group.dayName)} · ${group.rows.length}개 선택</h4>
+        <div class="selected-list">
+          ${group.rows.map(row => `
+            <article class="selected-card">
+              <div class="selected-top">
+                <div class="selected-time">${escapeHtml(row.time)}</div>
+                <div class="selected-code">${escapeHtml(row.code)}</div>
+              </div>
+              <div class="title">${escapeHtml(row.title)}</div>
+              <div class="selected-meta">${escapeHtml(row.org)} · ${escapeHtml(row.lang)} · ${escapeHtml(row.level)}</div>
+              <div class="selected-summary">${escapeHtml(row.summary)}</div>
+            </article>
+          `).join('')}
+        </div>
+      </section>
+    `).join('');
+  }
+
+  function wrapCanvasText(ctx, text, maxWidth) {
+    const normalized = String(text ?? '').replace(/\s+/g, ' ').trim();
+    if (!normalized) return [''];
+    const lines = [];
+    let current = '';
+
+    for (const char of normalized) {
+      const candidate = current + char;
+      if (!current || ctx.measureText(candidate).width <= maxWidth) {
+        current = candidate;
+        continue;
+      }
+      lines.push(current.trimEnd());
+      current = char === ' ' ? '' : char;
+    }
+
+    if (current) lines.push(current.trimEnd());
+    return lines.length ? lines : [''];
+  }
+
+  function buildSelectedGroups() {
+    const selected = getSelectedRows().sort((a, b) => a.dayName.localeCompare(b.dayName, 'ko') || a.range.start - b.range.start || a.title.localeCompare(b.title, 'ko'));
+    return scheduleData.map(day => ({
+      dayName: day.day_name,
+      rows: selected.filter(row => row.dayName === day.day_name)
+    })).filter(group => group.rows.length > 0);
+  }
+
+  function getExportConfig() {
+    const orientation = getExportOrientation();
+    if (orientation === 'portrait') {
+      return {
+        orientation,
+        width: 1120,
+        padding: 56,
+        panelRadius: 34,
+        sectionGap: 26,
+        cardGap: 16,
+        titleFont: '700 28px -apple-system, BlinkMacSystemFont, Segoe UI, Apple SD Gothic Neo, Noto Sans KR, sans-serif',
+        sectionFont: '700 20px -apple-system, BlinkMacSystemFont, Segoe UI, Apple SD Gothic Neo, Noto Sans KR, sans-serif',
+        timeFont: '800 18px -apple-system, BlinkMacSystemFont, Segoe UI, Apple SD Gothic Neo, Noto Sans KR, sans-serif',
+        cardTitleFont: '700 22px -apple-system, BlinkMacSystemFont, Segoe UI, Apple SD Gothic Neo, Noto Sans KR, sans-serif',
+        metaFont: '13px -apple-system, BlinkMacSystemFont, Segoe UI, Apple SD Gothic Neo, Noto Sans KR, sans-serif',
+        summaryFont: '14px -apple-system, BlinkMacSystemFont, Segoe UI, Apple SD Gothic Neo, Noto Sans KR, sans-serif',
+        subtitleFont: '14px -apple-system, BlinkMacSystemFont, Segoe UI, Apple SD Gothic Neo, Noto Sans KR, sans-serif'
+      };
+    }
+
+    return {
+      orientation,
+      width: 1600,
+      padding: 68,
+      panelRadius: 38,
+      sectionGap: 30,
+      cardGap: 18,
+      titleFont: '700 36px -apple-system, BlinkMacSystemFont, Segoe UI, Apple SD Gothic Neo, Noto Sans KR, sans-serif',
+      sectionFont: '700 24px -apple-system, BlinkMacSystemFont, Segoe UI, Apple SD Gothic Neo, Noto Sans KR, sans-serif',
+      timeFont: '800 20px -apple-system, BlinkMacSystemFont, Segoe UI, Apple SD Gothic Neo, Noto Sans KR, sans-serif',
+      cardTitleFont: '700 24px -apple-system, BlinkMacSystemFont, Segoe UI, Apple SD Gothic Neo, Noto Sans KR, sans-serif',
+      metaFont: '14px -apple-system, BlinkMacSystemFont, Segoe UI, Apple SD Gothic Neo, Noto Sans KR, sans-serif',
+      summaryFont: '15px -apple-system, BlinkMacSystemFont, Segoe UI, Apple SD Gothic Neo, Noto Sans KR, sans-serif',
+      subtitleFont: '15px -apple-system, BlinkMacSystemFont, Segoe UI, Apple SD Gothic Neo, Noto Sans KR, sans-serif'
+    };
+  }
+
+  function drawRoundedRect(ctx, x, y, width, height, radius, fillStyle, strokeStyle = null, lineWidth = 1) {
+    ctx.beginPath();
+    ctx.moveTo(x + radius, y);
+    ctx.arcTo(x + width, y, x + width, y + height, radius);
+    ctx.arcTo(x + width, y + height, x, y + height, radius);
+    ctx.arcTo(x, y + height, x, y, radius);
+    ctx.arcTo(x, y, x + width, y, radius);
+    ctx.closePath();
+    ctx.fillStyle = fillStyle;
+    ctx.fill();
+    if (strokeStyle) {
+      ctx.lineWidth = lineWidth;
+      ctx.strokeStyle = strokeStyle;
+      ctx.stroke();
+    }
+  }
+
+  function measureExportLayout(groups, config) {
+    const measureCanvas = document.createElement('canvas');
+    const ctx = measureCanvas.getContext('2d');
+    const panelWidth = config.width - config.padding * 2;
+    const badgeWidth = 178;
+    const innerWidth = panelWidth - 44;
+    const contentWidth = innerWidth - 32;
+    const cardWidth = contentWidth;
+    const cardTextWidth = cardWidth - 32;
+    const timestamp = new Date();
+    const timestampLabel = `${timestamp.getFullYear()}.${String(timestamp.getMonth()+1).padStart(2,'0')}.${String(timestamp.getDate()).padStart(2,'0')} ${String(timestamp.getHours()).padStart(2,'0')}:${String(timestamp.getMinutes()).padStart(2,'0')}`;
+
+    let totalHeight = config.padding + 168;
+    const measuredGroups = groups.map(group => {
+      totalHeight += 32;
+      const measuredRows = group.rows.map((row, index) => {
+        ctx.font = config.cardTitleFont;
+        const titleLines = wrapCanvasText(ctx, row.title, cardTextWidth);
+        ctx.font = config.metaFont;
+        const metaLines = wrapCanvasText(ctx, `${row.org} · ${row.lang} · ${row.level}`, cardTextWidth);
+        ctx.font = config.summaryFont;
+        const summaryLines = wrapCanvasText(ctx, row.summary, cardTextWidth);
+        const height = 112 + (titleLines.length - 1) * 28 + (metaLines.length - 1) * 18 + (summaryLines.length - 1) * 22;
+        totalHeight += height + config.cardGap;
+        return { ...row, index: index + 1, titleLines, metaLines, summaryLines, height };
+      });
+      totalHeight += config.sectionGap;
+      return { ...group, rows: measuredRows };
+    });
+
+    return {
+      groups: measuredGroups,
+      totalHeight: totalHeight + config.padding - config.sectionGap,
+      panelWidth,
+      innerWidth,
+      contentWidth,
+      badgeWidth,
+      timestampLabel
+    };
+  }
+
+  async function downloadCanvas(canvas) {
+    const stamp = new Date().toISOString().slice(0,19).replace(/[T:]/g, '-');
+    const orientation = getExportOrientation();
+    const blob = await new Promise(resolve => canvas.toBlob(resolve, 'image/png'));
+    if (!blob) {
+      alert('PNG 생성에 실패했습니다. 다시 시도해 주세요.');
+      return;
+    }
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement('a');
+    link.download = `aws-summit-selected-timetable-${orientation}-${stamp}.png`;
+    link.href = url;
+    link.click();
+    setTimeout(() => URL.revokeObjectURL(url), 1500);
+  }
+
+  async function exportBoardAsImage() {
+    const groups = buildSelectedGroups();
+    if (!groups.length) {
+      alert('먼저 하나 이상의 세션을 선택해 주세요.');
+      return;
+    }
+
+    const config = getExportConfig();
+    const measured = measureExportLayout(groups, config);
+    const scale = 2;
+    const canvas = document.createElement('canvas');
+    canvas.width = config.width * scale;
+    canvas.height = measured.totalHeight * scale;
+    const ctx = canvas.getContext('2d');
+    ctx.scale(scale, scale);
+
+    const bg = ctx.createLinearGradient(0, 0, config.width, measured.totalHeight);
+    bg.addColorStop(0, '#09111e');
+    bg.addColorStop(0.5, '#10213d');
+    bg.addColorStop(1, '#07101b');
+    ctx.fillStyle = bg;
+    ctx.fillRect(0, 0, config.width, measured.totalHeight);
+
+    const glow = ctx.createRadialGradient(config.width * 0.82, 140, 40, config.width * 0.82, 140, 360);
+    glow.addColorStop(0, 'rgba(102,217,239,0.22)');
+    glow.addColorStop(1, 'rgba(102,217,239,0)');
+    ctx.fillStyle = glow;
+    ctx.fillRect(0, 0, config.width, measured.totalHeight);
+
+    drawRoundedRect(ctx, config.padding, 28, measured.panelWidth, measured.totalHeight - 56, config.panelRadius, 'rgba(13,22,38,0.88)', 'rgba(86,120,173,0.55)', 1.5);
+    drawRoundedRect(ctx, config.padding + 20, 48, measured.innerWidth, 122, 26, 'rgba(255,255,255,0.03)', 'rgba(86,120,173,0.35)');
+
+    ctx.fillStyle = '#66d9ef';
+    ctx.font = '700 14px -apple-system, BlinkMacSystemFont, Segoe UI, Apple SD Gothic Neo, Noto Sans KR, sans-serif';
+    ctx.fillText('AWS SUMMIT SEOUL 2026', config.padding + 40, 82);
+
+    ctx.fillStyle = '#e9eefb';
+    ctx.font = config.titleFont;
+    ctx.fillText('Selected Session Timetable', config.padding + 40, 122);
+
+    ctx.fillStyle = '#a8b4cf';
+    ctx.font = config.subtitleFont;
+    ctx.fillText('선택한 세션만 모아 만든 개인용 타임테이블 · 다운로드용 고해상도 PNG', config.padding + 40, 148);
+
+    const stats = [
+      `${measured.groups.reduce((sum, g) => sum + g.rows.length, 0)}개 세션`,
+      `${measured.groups.find(g => g.dayName.includes('5월 20일'))?.rows.length || 0}개 / 5월 20일`,
+      `${measured.groups.find(g => g.dayName.includes('5월 21일'))?.rows.length || 0}개 / 5월 21일`,
+      config.orientation === 'portrait' ? '세로형 레이아웃' : '가로형 레이아웃'
+    ];
+
+    let chipX = config.padding + 40;
+    for (const stat of stats) {
+      ctx.font = '600 13px -apple-system, BlinkMacSystemFont, Segoe UI, Apple SD Gothic Neo, Noto Sans KR, sans-serif';
+      const w = ctx.measureText(stat).width + 26;
+      drawRoundedRect(ctx, chipX, 184, w, 34, 17, 'rgba(19,35,58,1)', 'rgba(70,103,150,0.7)');
+      ctx.fillStyle = '#d7e4ff';
+      ctx.fillText(stat, chipX + 13, 206);
+      chipX += w + 10;
+    }
+
+    ctx.fillStyle = '#7f90b6';
+    ctx.font = '12px -apple-system, BlinkMacSystemFont, Segoe UI, Apple SD Gothic Neo, Noto Sans KR, sans-serif';
+    ctx.fillText(`생성 시각 ${measured.timestampLabel}`, config.width - config.padding - 200, 206);
+
+    let y = 248;
+    for (const group of measured.groups) {
+      drawRoundedRect(ctx, config.padding + 20, y, measured.innerWidth, 46, 20, 'rgba(14,33,55,0.92)', 'rgba(73,105,148,0.52)');
+      ctx.fillStyle = '#f4f8ff';
+      ctx.font = config.sectionFont;
+      ctx.fillText(`${group.dayName} · ${group.rows.length}개 선택`, config.padding + 42, y + 29);
+      y += 62;
+
+      for (const row of group.rows) {
+        const cardX = config.padding + 20;
+        const cardY = y;
+        const accent = row.dayName.includes('5월 20일') ? '#5bd8ff' : '#8bd450';
+        drawRoundedRect(ctx, cardX, cardY, measured.innerWidth, row.height, 24, 'rgba(255,255,255,0.035)', 'rgba(86,120,173,0.45)');
+        drawRoundedRect(ctx, cardX + 18, cardY + 18, 8, row.height - 36, 4, accent);
+
+        drawRoundedRect(ctx, cardX + 40, cardY + 18, 150, 38, 19, 'rgba(12,29,48,0.92)', 'rgba(73,105,148,0.6)');
+        ctx.fillStyle = '#66d9ef';
+        ctx.font = config.timeFont;
+        ctx.fillText(row.time, cardX + 56, cardY + 42);
+
+        ctx.fillStyle = '#8fa3c7';
+        ctx.font = '700 12px -apple-system, BlinkMacSystemFont, Segoe UI, Apple SD Gothic Neo, Noto Sans KR, sans-serif';
+        const orderLabel = `#${String(row.index).padStart(2, '0')} · ${row.code}`;
+        const orderWidth = ctx.measureText(orderLabel).width;
+        ctx.fillText(orderLabel, cardX + measured.innerWidth - orderWidth - 24, cardY + 42);
+
+        let textY = cardY + 84;
+        ctx.fillStyle = '#f5f8ff';
+        ctx.font = config.cardTitleFont;
+        for (const line of row.titleLines) {
+          ctx.fillText(line, cardX + 40, textY);
+          textY += 28;
+        }
+
+        ctx.fillStyle = '#9db0d2';
+        ctx.font = config.metaFont;
+        for (const line of row.metaLines) {
+          ctx.fillText(line, cardX + 40, textY);
+          textY += 18;
+        }
+
+        ctx.fillStyle = '#d7e4ff';
+        ctx.font = config.summaryFont;
+        for (const line of row.summaryLines) {
+          ctx.fillText(line, cardX + 40, textY + 3);
+          textY += 22;
+        }
+
+        y += row.height + config.cardGap;
+      }
+
+      y += config.sectionGap;
+    }
+
+    ctx.fillStyle = '#7f90b6';
+    ctx.font = '12px -apple-system, BlinkMacSystemFont, Segoe UI, Apple SD Gothic Neo, Noto Sans KR, sans-serif';
+    ctx.fillText('Source: AWS Summit Seoul 2026 agenda · Generated from selected sessions in browser', config.padding + 20, measured.totalHeight - 26);
+
+    await downloadCanvas(canvas);
+  }
+
+  function syncUI() {
+    syncTableState();
+    renderSelectedBoard();
+    persistState();
+  }
+
+  document.getElementById('clearSelectionsBtn').addEventListener('click', () => {
+    selections.clear();
+    syncUI();
+  });
+  document.getElementById('downloadImageBtn').addEventListener('click', exportBoardAsImage);
+  getOrientationSelect()?.addEventListener('change', () => {
+    renderSelectedBoard();
+    persistState();
+  });
+
+  renderScheduleTables();
+  restoreState();
+  syncUI();
+</script>
+</body>
+</html>
